@@ -69,9 +69,16 @@ Graph.prototype.updateLayout = function() {
 				// using rectangle's center, bounding box would be better
 				var deltax = this.vertices[j].posx - this.vertices[i].posx;
 				var deltay = this.vertices[j].posy - this.vertices[i].posy;
+				var d2 = deltax * deltax + deltay * deltay;
+
+				// add some jitter if distance^2 is very small
+				if( d2 < 0.01 ) {
+	                deltax = 0.1 * Math.random() + 0.1;
+	                deltay = 0.1 * Math.random() + 0.1;
+					var d2 = deltax * deltax + deltay * deltay;
+                }
 
 				// Coulomb's law -- repulsion varies inversely with square of distance
-				var d2 = deltax * deltax + deltay * deltay;
 				this.forcex[i] -= (this.repulsion / d2) * deltax;
 				this.forcey[i] -= (this.repulsion / d2) * deltay;
 
