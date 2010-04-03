@@ -69,14 +69,15 @@ Graph.prototype.updateLayout = function() {
 				// using rectangle's center, bounding box would be better
 				var deltax = this.vertices[j].posx - this.vertices[i].posx;
 				var deltay = this.vertices[j].posy - this.vertices[i].posy;
-				var distance = Math.sqrt(deltax * deltax + deltay * deltay);
 
-				// Coulomb's law -- repulsion varies inversely with distance
-				this.forcex[i] -= (this.repulsion / Math.pow( distance, 2 )) * deltax;
-				this.forcey[i] -= (this.repulsion / Math.pow( distance, 2 )) * deltay;
+				// Coulomb's law -- repulsion varies inversely with square of distance
+				var d2 = deltax * deltax + deltay * deltay;
+				this.forcex[i] -= (this.repulsion / d2) * deltax;
+				this.forcey[i] -= (this.repulsion / d2) * deltay;
 
 				// spring force along edges, follows Hooke's law
 				if( this.vertices[i].edges[j] ) {
+					var distance = Math.sqrt(d2);
 					this.forcex[i] += (distance - this.spring_length) * deltax;
 					this.forcey[i] += (distance - this.spring_length) * deltay;
 				}
