@@ -1,0 +1,5 @@
+The simplest possible force directed graph layout algorithm implemented as a Javascript library that uses SVG objects.  It is in no way meant to be production library, just a demonstration of force-directed layout as an adjunct to a conversation on that topic.
+
+demo1 -- super simple drawing of the taxonomic position of hedgehogs
+demo2 -- a sentence diagram, shows custom colors and edge styles
+demo3 -- populating a graph with data acquired via jQuery

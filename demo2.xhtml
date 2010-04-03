@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Simple Graph Layout: Sentence Diagram</title>
+		<style>
+			body { background: black; font: 13px/13px helvetica, sans-serif; }
+			#canvas { display: block; margin: auto; width: 960px; height: 720px; border: #111 1px solid; }
+		</style>
+		<script type="text/javascript" src="graph.js"></script>
+	</head>
+	<body>
+		<svg xmlns="http://www.w3.org/2000/svg" id="canvas"></svg>
+		<script type="text/javascript">
+		<![CDATA[
+			var g = new Graph("canvas", 960, 700 );
+
+			// reduce repulsion and spring length for more compact layout
+			g.repulsion = g.repulsion / 8;
+			g.spring_length = 1;
+			
+			g.createVertex("time","#000066"); // set node color
+			g.createVertex("flies");
+			g.createVertex("like");
+			g.createVertex("an");
+			g.createVertex("arrow");
+			g.createVertex("but");
+			g.createVertex("fruit");
+			g.createVertex("flies (2)");
+			g.createVertex("like (2)");
+			g.createVertex("a");
+			g.createVertex("banana");
+			
+			g.createEdge("time","flies");
+			g.createEdge("flies","like");
+			g.createEdge("like","arrow");
+			g.createEdge("arrow","an");
+			g.createEdge("flies","but","stroke-dasharray: 2, 2; stroke: #666; stroke-width: 3;"); // custom edge style
+			g.createEdge("but","flies (2)");
+			g.createEdge("flies (2)","fruit");
+			g.createEdge("flies (2)","like (2)");
+			g.createEdge("like (2)","banana");
+			g.createEdge("banana","a");
+			g.go();
+		]]>
+		</script>
+	</body>
+</html>

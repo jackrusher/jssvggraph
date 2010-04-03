@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Simple Graph Layout: Hedgepigs</title>
+		<style>
+			body { background: black; font: 13px/13px helvetica, sans-serif; }
+			#canvas { display: block; margin: auto; width: 960px; height: 720px; border: #111 1px solid; }
+		</style>
+		<script type="text/javascript" src="graph.js"></script>
+	</head>
+	<body>
+		<svg xmlns="http://www.w3.org/2000/svg" id="canvas"></svg>
+		<script type="text/javascript">
+		<![CDATA[
+			var g = new Graph("canvas", 960, 700 );
+	
+			g.createVertex("Animalia");
+			g.createVertex("Chordata");
+			g.createEdge("Chordata","Animalia");
+			g.createVertex("Mammalia");
+			g.createEdge("Mammalia","Chordata");
+			g.createVertex("Erinaceomorpha");
+			g.createEdge("Erinaceomorpha","Mammalia");
+			g.createVertex("Erinaceidae");
+			g.createEdge("Erinaceidae","Erinaceomorpha");
+			g.createVertex("Erinaceinae");
+			g.createEdge("Erinaceinae","Erinaceidae");
+
+			g.createVertex("Atelerix");
+			g.createEdge("Atelerix","Erinaceinae");
+			g.createVertex("Erinaceus");
+			g.createEdge("Erinaceus","Erinaceinae");
+			g.createVertex("Hemiechinus");
+			g.createEdge("Hemiechinus","Erinaceinae");
+			g.createVertex("Mesechinus");
+			g.createEdge("Mesechinus","Erinaceinae");
+			g.createVertex("Paraechinus");
+			g.createEdge("Paraechinus","Erinaceinae");
+
+			g.go();
+		]]>
+		</script>
+	</body>
+</html>

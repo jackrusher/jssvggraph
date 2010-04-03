@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Simple Graph Layout: Last.fm Similar Bands</title>
+		<style>
+		body { background: black; font: 13px/13px helvetica, sans-serif; }
+		#canvas { display: block; margin: auto; width: 960px; height: 720px; border: #111 1px solid; }
+		</style>
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script type="text/javascript" src="graph.js"></script>
+	</head>
+	<body>
+		<svg xmlns="http://www.w3.org/2000/svg" id="canvas"></svg>
+		<script type="text/javascript">
+		<![CDATA[
+			var g = new Graph("canvas", 960, 720 );
+			g.repulsion = g.repulsion * 2; // stronger repulsion
+			g.spring_length = 50; // longer springs
+
+			// fetch the ten most similar artists to this one
+			var bandname = "Sparklehorse";
+			$.getJSON("http://ws.audioscrobbler.com/2.0/?method=artist.getSimilar&artist=" + bandname + "&api_key=6b33ba424a7817ac02bdac996895eba4&limit=8&format=json&callback=?", function(data) {
+				rootname = data.similarartists['@attr']['artist'];
+				g.createVertex(rootname, "#006600");
+				$.each(data.similarartists.artist, function(i,item){
+					g.createVertex(item.name);
+					// custom edge style, width based on similarity
+					style = "stroke: #666; stroke-width: " + item.match * 5 +";";
+					g.createEdge(item.name,rootname,style);
+				});
+			});
+			g.go();
+		]]>
+		</script>
+	</body>
+</html>
